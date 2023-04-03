@@ -204,13 +204,13 @@ class DmxDataGrid extends JComponent {
 	DmxDataGrid() {
 		mNewValues = new byte[Monitor.kChannels];
 
-		Font myFont = new Font("monospaced", Font.PLAIN, 32);
+		Font myFont = new Font("monospaced", Font.PLAIN, 20);
 		setFont(myFont);
 		FontMetrics fm = getFontMetrics(myFont);
 		mAscent = fm.getAscent();
 		mDescent = fm.getDescent();
 		mLineHeight = mAscent + fm.getLeading();
-		mCellWidth = fm.charWidth('0') * (kCharsPerCell + 4);	// All are same - monospaced
+		mCellWidth = fm.charWidth('0') * (kCharsPerCell + 2);	// All are same - monospaced
 		mCellHeight = (mLineHeight + mDescent) * 2 + (int)Math.floor((float)mLineHeight / 2);
 		int rows = Monitor.kChannels / kValuesPerRow;
 
