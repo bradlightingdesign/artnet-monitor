@@ -87,6 +87,7 @@ class MainWindow {
 
 	MainWindow() {
 		JFrame frame = new JFrame("PIXILAB ArtNet Monitor");
+		
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		BorderLayout bl = new BorderLayout();
@@ -128,19 +129,28 @@ class MainWindow {
 		frame.add(buttonPanel,BorderLayout.NORTH);
 
 		JPanel gridPanel = new JPanel();
-		gridPanel.setBorder(BorderFactory.createEmptyBorder(0, 20, 20, 20));
+		gridPanel.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
 		mDataGrid = new DmxDataGrid();
 		gridPanel.add(mDataGrid);
 		frame.add(gridPanel, BorderLayout.CENTER);
+		
+		gridPanel.setBackground(Color.black);
 
 		frame.pack();
 		frame.setVisible(true);
 
 		// No need to resize window for now, so lock its size
-		Dimension frameSize = frame.getMinimumSize();
-		frame.setMinimumSize(frameSize);
-		frame.setMaximumSize(frameSize);
-
+		//Dimension frameSize = frame.getMinimumSize();
+		//frame.setMinimumSize(frameSize);
+		//frame.setMaximumSize(frameSize);
+		
+		JScrollPane scrollPane = new JScrollPane(gridPanel);
+		
+		scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+		scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+		
+		frame.getContentPane().add(scrollPane);
+		
 		autoSelectOnFocus();
 	}
 
@@ -194,13 +204,13 @@ class DmxDataGrid extends JComponent {
 	DmxDataGrid() {
 		mNewValues = new byte[Monitor.kChannels];
 
-		Font myFont = new Font("monospaced", Font.PLAIN, 14);
+		Font myFont = new Font("monospaced", Font.PLAIN, 32);
 		setFont(myFont);
 		FontMetrics fm = getFontMetrics(myFont);
 		mAscent = fm.getAscent();
 		mDescent = fm.getDescent();
 		mLineHeight = mAscent + fm.getLeading();
-		mCellWidth = fm.charWidth('0') * (kCharsPerCell+1);	// All are same - monospaced
+		mCellWidth = fm.charWidth('0') * (kCharsPerCell + 4);	// All are same - monospaced
 		mCellHeight = (mLineHeight + mDescent) * 2 + (int)Math.floor((float)mLineHeight / 2);
 		int rows = Monitor.kChannels / kValuesPerRow;
 
@@ -287,7 +297,7 @@ class DmxDataGrid extends JComponent {
 	private void paintChannelNumber(Graphics g, int ix) {
 		int y = (ix / kValuesPerRow) * mCellHeight;
 		int x = (ix % kValuesPerRow) * mCellWidth;
-		g.setColor(Color.GRAY);
+		g.setColor(Color.WHITE);
 		drawThreeDigits(g, x, y, ix+1);
 	}
 
@@ -300,10 +310,10 @@ class DmxDataGrid extends JComponent {
 		int x = (ix % kValuesPerRow) * mCellWidth;
 
 		// Paint bg from value, with contrasting text
-		Color bgColor = new Color(v, v, v);
+		Color bgColor = new Color(255, 120, 0);
 		g.setColor(bgColor);
 		g.fillRect(x, y, mCellWidth, mLineHeight + mDescent);
-		g.setColor(v > 0x80 ? Color.BLACK : Color.WHITE);
+		g.setColor(v > 0x80 ? Color.WHITE : Color.WHITE);
 
 		drawThreeDigits(g, x, y, v);
 
