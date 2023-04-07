@@ -134,11 +134,11 @@ class MainWindow {
 		gridPanel.add(mDataGrid);
 		frame.add(gridPanel, BorderLayout.CENTER);
 		
-		gridPanel.setBackground(Color.black);
+		gridPanel.setBackground(Color.BLACK);
 
 		frame.pack();
 		frame.setVisible(true);
-
+		
 		// No need to resize window for now, so lock its size
 		//Dimension frameSize = frame.getMinimumSize();
 		//frame.setMinimumSize(frameSize);
@@ -313,7 +313,7 @@ class DmxDataGrid extends JComponent {
 		Color bgColor = new Color(255, 120, 0);
 		g.setColor(bgColor);
 		g.fillRect(x, y, mCellWidth, mLineHeight + mDescent);
-		g.setColor(v > 0x80 ? Color.WHITE : Color.WHITE);
+		g.setColor(v > 0x10 ? Color.BLACK : Color.WHITE);
 
 		drawThreeDigits(g, x, y, v);
 
