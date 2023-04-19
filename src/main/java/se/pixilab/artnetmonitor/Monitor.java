@@ -138,6 +138,7 @@ class MainWindow {
 
 		frame.pack();
 		frame.setVisible(true);
+		frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		
 		// No need to resize window for now, so lock its size
 		//Dimension frameSize = frame.getMinimumSize();
